@@ -10,7 +10,7 @@ High level API written in GO.
 - [ ] Extras (Single)
 - [ ] Extras (Batch)
 - [ ] PNG Info
-- [ ] Progress
+- [x] Progress
 - [ ] Interrogate
 - [ ] Interrupt
 - [ ] Skip
