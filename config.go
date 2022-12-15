@@ -100,31 +100,3 @@ func setDefault(conf ...Config) Config {
 
 	return config
 }
-
-func (c *Config) Build(conf Config) Config {
-	if conf.BaseURL == "" {
-		conf.BaseURL = c.BaseURL
-	}
-
-	if conf.DefaultSampler == "" {
-		conf.DefaultSampler = c.DefaultSampler
-	}
-
-	if conf.DefaultSteps == 0 {
-		conf.DefaultSteps = c.DefaultSteps
-	}
-
-	if conf.DefaultCFGScale == 0 {
-		conf.DefaultCFGScale = c.DefaultCFGScale
-	}
-
-	if conf.DefaultWidth == 0 {
-		conf.DefaultWidth = c.DefaultWidth
-	}
-
-	if conf.DefaultHeight == 0 {
-		conf.DefaultHeight = c.DefaultHeight
-	}
-
-	return conf
-}
