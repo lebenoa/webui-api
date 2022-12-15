@@ -44,6 +44,7 @@ var DefaultConfig = Config{
     // Don't change any of these unless you know what you're doing. 
     // I purposely exported this as I don't know If I'll still maintain this pkg in the future
     Txt2Img: "/sdapi/v1/txt2img",
+	Progress: "/sdapi/v1/progress",
   },
   DefaultSampler:  sampler.EULER_A,
   DefaultSteps:    28,
