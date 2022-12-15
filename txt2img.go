@@ -75,7 +75,7 @@ func (data *Txt2Image) processDefault(a *api) {
 func (a *api) Text2Image(params Txt2Image) (res *txt2ImageRespond, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2Img: %v", err)
+			err = fmt.Errorf("recover from Txt2Img: %v", r)
 		}
 	}()
 
