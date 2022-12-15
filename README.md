@@ -19,6 +19,13 @@ High level API written in GO.
  
 ## Getting Started
 
+```
+go get github.com/Meonako/webui-api
+```
+Then Import
+
+_OR_
+
 Simply add package to import like this
 ```go
 import (
