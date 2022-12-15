@@ -25,9 +25,19 @@ func New(newConfig ...Config) *api {
 
 // Covenient function to build prompt.
 //
-// BuildPrompt("masterpiece", "best quality", "solo", "cute", "innocent") -> "masterpiece, best quality, solo, cute, innocent"
+// BuildPrompt("masterpiece", "best quality", "solo") -> "masterpiece, best quality, solo"
 func BuildPrompt(args ...string) string {
 	return strings.Join(args, ", ")
+}
+
+func (a *api) get(path string) ([]byte, error) {
+	resp, err := http.Get(a.Config.BaseURL + path)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	return io.ReadAll(resp.Body)
 }
 
 func (a *api) post(path string, data []byte) ([]byte, error) {
