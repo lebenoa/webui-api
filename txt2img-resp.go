@@ -46,7 +46,7 @@ func (tr *txt2ImageRespond) DecodeAllImages() ([][]byte, error) {
 
 // Make bytes.Reader from "DecodedImages" field.
 //
-// It'll call "DecodeAllImages()" if "len(DecodedImages) <= 0" then continue to proceed.
+//   - It'll call "DecodeAllImages()" if "len(DecodedImages) <= 0" then continue to proceed.
 //
 // This is ready to send to discord. Or ready to png.Decode and save.
 func (tr *txt2ImageRespond) MakeBytesReader() (reader []*bytes.Reader, err error) {
@@ -64,8 +64,8 @@ func (tr *txt2ImageRespond) MakeBytesReader() (reader []*bytes.Reader, err error
 	return reader, nil
 }
 
-// Info field contains generation parameters like "parameters" field but in long string instead.
-// So I wouldn't recommend doing this as it intend to be use as long string *UNLESS* you know what you're doing.
+// Info field contains generation parameters like "Parameters" field but in long string instead.
+//   - So I wouldn't recommend doing this as it intend to be use as long string *UNLESS* you know what you're doing.
 func (tr *txt2ImageRespond) DecodeInfo() (res map[string]any, err error) {
 	err = json.Unmarshal([]byte(tr.Info), &res)
 	return

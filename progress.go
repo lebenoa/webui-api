@@ -40,9 +40,9 @@ func (a *api) Progress() (*progressRespond, error) {
 
 // Convert Progress field to percentage value (e.g. 83.57%).
 //
-// format argument is optional. pass emtpy string will round to interger in string format.
+//	format argument is optional. pass emtpy string will round to interger in string format.
 //
-// Default: 2 (e.g. 83.57%)
+//	Default: 2 (e.g. 83.57%)
 func (p *progressRespond) GetProgress(format ...string) string {
 	deci := ".2"
 	if len(format) > 0 {
@@ -74,7 +74,7 @@ func (p *progressRespond) GetETA(format ...string) string {
 
 // Get current image if not empty. Usually this is empty if you didn't change the value of the following setting.
 //
-// "Show image creation progress every N sampling steps. Set to 0 to disable. Set to -1 to show after completion of batch."
+//	"Show image creation progress every N sampling steps. Set to 0 to disable. Set to -1 to show after completion of batch."
 func (p *progressRespond) GetCurrentImage() (*bytes.Reader, error) {
 	if p.CurrentImage == "" {
 		return nil, nil
