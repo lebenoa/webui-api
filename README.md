@@ -48,7 +48,7 @@ var DefaultConfig = Config{
     // Don't change any of these unless you know what you're doing. 
     // I purposely exported this as I don't know If I'll still maintain this pkg in the future
     Txt2Img: "/sdapi/v1/txt2img",
-	Progress: "/sdapi/v1/progress",
+  Progress: "/sdapi/v1/progress",
   },
   DefaultSampler:  sampler.EULER_A,
   DefaultSteps:    28,
@@ -64,81 +64,81 @@ var DefaultConfig = Config{
 package main
 
 import (
-	"fmt"
-	"image/png"
-	"os"
-	"github.com/Meonako/webui-api"
-	"text/tabwriter"
+  "fmt"
+  "image/png"
+  "os"
+  "github.com/Meonako/webui-api"
+  "text/tabwriter"
 )
 
 func main() {
-	API := api.New(api.Config{
-		UseDefault: true,
-	})
+  API := api.New(api.Config{
+    UseDefault: true,
+  })
 
-	resp, err := API.Text2Image(api.Txt2Image{
-		Prompt: api.BuildPrompt(
-			"solo", "cute", "adorable", "innocent",
-			"blush", "girly", "narrow waist", "absurdly long hair",
-			"(pink hair)", "hair ornament", "pink eyes", "hair flower",
-		),
-		//
-		// Or you can pass a long string
-		//
-		// Prompt: "solo, cute, adorable, innocent, blush, girly, narrow waist, absurdly long hair, (pink hair), hair ornament, pink eyes, hair flower",
-		//
-		// Or you can do this
-		//
-		// Prompt: "solo, cute, adorable, innocent" +
-		// "blush, girly, narrow waist, absurdly long hair" +
-		// "(pink hair), hair ornament, pink eyes, hair flower",
-		//
-		NegativePrompt: api.BuildPrompt(
-			"sketch by bad-artist", "lowres", "bad anatomy",
-			"bad hands", "text", "error", "missing fingers",
-			"extra digit", "fewer digits", "cropped",
-			"worst quality", "low quality", "normal quality",
-			"jpeg artifacts", "signature", "watermark",
-			"username", "blurry", "simple background",
-			"(track suit)", "(jacket)", "(name tag)",
-			"(sleeveless), (shoes), (socks), hat",
-			"covered navel, clothes lift, clothes pull, (head out of frame)",
-		),
-	})
-	if err != nil {
-		panic(err)
-	}
+  resp, err := API.Text2Image(api.Txt2Image{
+    Prompt: api.BuildPrompt(
+      "solo", "cute", "adorable", "innocent",
+      "blush", "girly", "narrow waist", "absurdly long hair",
+      "(pink hair)", "hair ornament", "pink eyes", "hair flower",
+    ),
+    //
+    // Or you can pass a long string
+    //
+    // Prompt: "solo, cute, adorable, innocent, blush, girly, narrow waist, absurdly long hair, (pink hair), hair ornament, pink eyes, hair flower",
+    //
+    // Or you can do this
+    //
+    // Prompt: "solo, cute, adorable, innocent" +
+    // "blush, girly, narrow waist, absurdly long hair" +
+    // "(pink hair), hair ornament, pink eyes, hair flower",
+    //
+    NegativePrompt: api.BuildPrompt(
+      "sketch by bad-artist", "lowres", "bad anatomy",
+      "bad hands", "text", "error", "missing fingers",
+      "extra digit", "fewer digits", "cropped",
+      "worst quality", "low quality", "normal quality",
+      "jpeg artifacts", "signature", "watermark",
+      "username", "blurry", "simple background",
+      "(track suit)", "(jacket)", "(name tag)",
+      "(sleeveless), (shoes), (socks), hat",
+      "covered navel, clothes lift, clothes pull, (head out of frame)",
+    ),
+  })
+  if err != nil {
+    panic(err)
+  }
 
-	writer := tabwriter.NewWriter(os.Stdout, 1, 1, 3, ' ', 0)
-	fmt.Fprintf(writer, "Steps\t|\t%v\n", resp.Parameters.Steps)
-	fmt.Fprintf(writer, "Sampler Name\t|\t%v\n", resp.Parameters.SamplerName)
-	fmt.Fprintf(writer, "Sampler Index\t|\t%v\n", resp.Parameters.SamplerIndex)
-	fmt.Fprintf(writer, "Width\t|\t%v\n", resp.Parameters.Width)
-	fmt.Fprintf(writer, "Height\t|\t%v\n", resp.Parameters.Height)
-	writer.Flush()
+  writer := tabwriter.NewWriter(os.Stdout, 1, 1, 3, ' ', 0)
+  fmt.Fprintf(writer, "Steps\t|\t%v\n", resp.Parameters.Steps)
+  fmt.Fprintf(writer, "Sampler Name\t|\t%v\n", resp.Parameters.SamplerName)
+  fmt.Fprintf(writer, "Sampler Index\t|\t%v\n", resp.Parameters.SamplerIndex)
+  fmt.Fprintf(writer, "Width\t|\t%v\n", resp.Parameters.Width)
+  fmt.Fprintf(writer, "Height\t|\t%v\n", resp.Parameters.Height)
+  writer.Flush()
 
-	readers, err := resp.MakeBytesReader()
-	if err != nil {
-		panic(err)
-	}
+  readers, err := resp.MakeBytesReader()
+  if err != nil {
+    panic(err)
+  }
 
-	for index, reader := range readers {
-		file, err := os.OpenFile(fmt.Sprintf("Image (%v).png", index), os.O_WRONLY|os.O_CREATE, 0777)
-		if err != nil {
-			panic(err)
-		}
-		defer file.Close()
+  for index, reader := range readers {
+    file, err := os.OpenFile(fmt.Sprintf("Image (%v).png", index), os.O_WRONLY|os.O_CREATE, 0777)
+    if err != nil {
+      panic(err)
+    }
+    defer file.Close()
 
-		img, err := png.Decode(reader)
-		if err != nil {
-			panic(err)
-		}
+    img, err := png.Decode(reader)
+    if err != nil {
+      panic(err)
+    }
 
-		err = png.Encode(file, img)
-		if err != nil {
-			panic(err)
-		}
-	}
+    err = png.Encode(file, img)
+    if err != nil {
+      panic(err)
+    }
+  }
 }
 
 ```
