@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/goccy/go-json"
 )
 
@@ -73,12 +71,6 @@ func (data *Txt2Image) processDefault(a *api) {
 
 // Generate Image based on Text. Return Respond struct and Error object.
 func (a *api) Text2Image(params Txt2Image) (res *txt2ImageRespond, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2Img: %v", r)
-		}
-	}()
-
 	params.processDefault(a)
 
 	payload, err := json.Marshal(params)

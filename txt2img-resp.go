@@ -2,8 +2,9 @@ package api
 
 import (
 	"bytes"
-	"encoding/base64"
 	"fmt"
+
+	"github.com/Meonako/webui-api/utils"
 
 	"github.com/goccy/go-json"
 )
@@ -23,28 +24,16 @@ func newTxt2ImgResp() *txt2ImageRespond {
 }
 
 // Decode data at index store in "Images" field and return it.
-func (tr *txt2ImageRespond) DecodeImage(index int) (_ []byte, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2ImgResp DecodeImage(): %v", r)
-		}
-	}()
-
+func (tr *txt2ImageRespond) DecodeImage(index int) ([]byte, error) {
 	if len(tr.Images) <= index {
 		return []byte{}, fmt.Errorf("%v", "Out of bound. Provided Index > Images in struct.")
 	}
 
-	return base64.StdEncoding.DecodeString(tr.Images[index])
+	return utils.DecodeBase64(tr.Images[index])
 }
 
 // Decode all data store in "Images" field and return it. You can access this later in "DecodedImages" Field.
-func (tr *txt2ImageRespond) DecodeAllImages() (_ [][]byte, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2ImgResp DecodeAllImages(): %v", r)
-		}
-	}()
-
+func (tr *txt2ImageRespond) DecodeAllImages() ([][]byte, error) {
 	for index := range tr.Images {
 		imageData, err := tr.DecodeImage(index)
 		if err != nil {
@@ -61,12 +50,6 @@ func (tr *txt2ImageRespond) DecodeAllImages() (_ [][]byte, err error) {
 //
 // This is ready to send to discord. Or ready to png.Decode and save.
 func (tr *txt2ImageRespond) MakeBytesReader() (reader []*bytes.Reader, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2ImgResp MakeBytesReader(): %v", r)
-		}
-	}()
-
 	if len(tr.DecodedImages) <= 0 {
 		_, err = tr.DecodeAllImages()
 		if err != nil {
@@ -84,12 +67,6 @@ func (tr *txt2ImageRespond) MakeBytesReader() (reader []*bytes.Reader, err error
 // Info field contains generation parameters like "parameters" field but in long string instead.
 // So I wouldn't recommend doing this as it intend to be use as long string *UNLESS* you know what you're doing.
 func (tr *txt2ImageRespond) DecodeInfo() (res map[string]any, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("recover from Txt2ImgResp DecodeInfo(): %v", r)
-		}
-	}()
-
 	err = json.Unmarshal([]byte(tr.Info), &res)
 	return
 }
