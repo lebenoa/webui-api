@@ -6,7 +6,7 @@ High level API written in GO.
 
 - [ ] Auth Related
 - [x] Txt2Img
-- [ ] Img2Img
+- [x] Img2Img
 - [ ] Extras (Single)
 - [ ] Extras (Batch)
 - [ ] PNG Info
