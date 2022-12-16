@@ -84,7 +84,7 @@ func (a *api) Image2Image(i Img2Img) (*img2imgRespond, error) {
 		return &img2imgRespond{}, err
 	}
 
-	data, err := a.post(a.Config.Path.Txt2Img, payload)
+	data, err := a.post(a.Config.Path.Img2Img, payload)
 	if err != nil {
 		return &img2imgRespond{}, err
 	}
