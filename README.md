@@ -47,8 +47,10 @@ var DefaultConfig = Config{
     Path: &APIPath{
         // Don't change any of these unless you know what you're doing. 
         // I purposely exported this as I don't know If I'll still maintain this pkg in the future
-        Txt2Img: "/sdapi/v1/txt2img",
+        Txt2Img:  "/sdapi/v1/txt2img",
+        Img2Img:  "/sdapi/v1/img2img",
         Progress: "/sdapi/v1/progress",
+        SDModels: "/sdapi/v1/sd-models",
     },
     DefaultSampler:  sampler.EULER_A,
     DefaultSteps:    28,
