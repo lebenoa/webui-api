@@ -43,13 +43,18 @@ type Config struct {
 type APIPath struct {
 	// Path to txt2img API
 	//
-	// - Default: /sdapi/v1/txt2img
+	//  - Default: /sdapi/v1/txt2img
 	Txt2Img string
 
 	// Path to progress API
 	//
-	// - Default: /sdapi/v1/progress
+	//  - Default: /sdapi/v1/progress
 	Progress string
+
+	// Path to sd-models API
+	//
+	//  - Default: /sdapi/v1/sd-models
+	SDModels string
 }
 
 var DefaultConfig = Config{
@@ -57,6 +62,7 @@ var DefaultConfig = Config{
 	Path: &APIPath{
 		Txt2Img:  "/sdapi/v1/txt2img",
 		Progress: "/sdapi/v1/progress",
+		SDModels: "/sdapi/v1/sd-models",
 	},
 	DefaultSampler:  sampler.EULER_A,
 	DefaultSteps:    28,
