@@ -39,5 +39,5 @@ func ReadFromBytes(data []byte) (string, error) {
 		return "", err
 	}
 
-	return "data:image/png;base64," + utils.EncodeBase64(buf.Bytes()), err
+	return utils.EncodeBase64(buf.Bytes()), err
 }
