@@ -46,6 +46,11 @@ type APIPath struct {
 	//  - Default: /sdapi/v1/txt2img
 	Txt2Img string
 
+	// Path to img2img API
+	//
+	//  - Default: /sdapi/v1/img2img
+	Img2Img string
+
 	// Path to progress API
 	//
 	//  - Default: /sdapi/v1/progress
@@ -61,6 +66,7 @@ var DefaultConfig = Config{
 	BaseURL: "http://127.0.0.1:7860",
 	Path: &APIPath{
 		Txt2Img:  "/sdapi/v1/txt2img",
+		Img2Img:  "/sdapi/v1/img2img",
 		Progress: "/sdapi/v1/progress",
 		SDModels: "/sdapi/v1/sd-models",
 	},
