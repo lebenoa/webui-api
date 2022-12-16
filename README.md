@@ -15,7 +15,7 @@ High level API written in GO.
 - [ ] Interrupt
 - [ ] Skip
 - [ ] Options
-- [ ] Get Available Model(s)
+- [x] Get Available Model(s)
  
 ## Getting Started
 
