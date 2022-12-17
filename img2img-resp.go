@@ -26,7 +26,7 @@ func newImg2ImgResp() *img2imgRespond {
 // Decode data at index store in "Images" field and return it.
 func (tr *img2imgRespond) DecodeImage(index int) ([]byte, error) {
 	if len(tr.Images) <= index {
-		return []byte{}, fmt.Errorf("%v", "Out of bound. Provided Index > Images in struct.")
+		return []byte{}, fmt.Errorf("%v", "Out of bound. Provided Index > len(Images) of struct.")
 	}
 
 	return utils.DecodeBase64(tr.Images[index])
@@ -34,11 +34,16 @@ func (tr *img2imgRespond) DecodeImage(index int) ([]byte, error) {
 
 // Decode all data store in "Images" field and return it. You can access this later in "DecodedImages" Field.
 func (tr *img2imgRespond) DecodeAllImages() ([][]byte, error) {
+	if tr.DecodedImages == nil || len(tr.DecodedImages) > 0 {
+		tr.DecodedImages = [][]byte{}
+	}
+
 	for index := range tr.Images {
 		imageData, err := tr.DecodeImage(index)
 		if err != nil {
 			return [][]byte{}, err
 		}
+
 		tr.DecodedImages = append(tr.DecodedImages, imageData)
 	}
 	return tr.DecodedImages, nil
@@ -50,15 +55,18 @@ func (tr *img2imgRespond) DecodeAllImages() ([][]byte, error) {
 //
 // This is ready to send to discord. Or ready to png.Decode and save.
 func (tr *img2imgRespond) MakeBytesReader() (reader []*bytes.Reader, err error) {
-	if len(tr.DecodedImages) <= 0 {
-		_, err = tr.DecodeAllImages()
-		if err != nil {
-			return
-		}
+	if tr.DecodedImages == nil || len(tr.DecodedImages) > 0 {
+		tr.DecodedImages = [][]byte{}
 	}
 
-	for _, imageData := range tr.DecodedImages {
+	for index := range tr.Images {
+		imageData, err := tr.DecodeImage(index)
+		if err != nil {
+			return nil, err
+		}
+
 		reader = append(reader, bytes.NewReader(imageData))
+		tr.DecodedImages = append(tr.DecodedImages, imageData)
 	}
 
 	return reader, nil
