@@ -51,10 +51,40 @@ type APIPath struct {
 	//  - Default: /sdapi/v1/img2img
 	Img2Img string
 
+	// Path to extra single image API
+	//
+	//  - Default: /sdapi/v1/extra-single-image
+	ExtraSingle string
+
+	// Path to extra batch images API
+	//
+	//  - Default: /sdapi/v1/extra-batch-images
+	ExtraBatch string
+
+	// Path to png info API
+	//
+	//  - Default: /sdapi/v1/png-info
+	PNGInfo string
+
 	// Path to progress API
 	//
 	//  - Default: /sdapi/v1/progress
 	Progress string
+
+	// Path to interrogate API
+	//
+	//  - Default: /sdapi/v1/interrogate
+	Interrogate string
+
+	// Path to interrupt API
+	//
+	//  - Default: /sdapi/v1/interrupt
+	Interrupt string
+
+	// Path to skip API
+	//
+	//  - Default: /sdapi/v1/skip
+	Skip string
 
 	// Path to sd-models API
 	//
@@ -65,10 +95,16 @@ type APIPath struct {
 var DefaultConfig = Config{
 	BaseURL: "http://127.0.0.1:7860",
 	Path: &APIPath{
-		Txt2Img:  "/sdapi/v1/txt2img",
-		Img2Img:  "/sdapi/v1/img2img",
-		Progress: "/sdapi/v1/progress",
-		SDModels: "/sdapi/v1/sd-models",
+		Txt2Img:     "/sdapi/v1/txt2img",
+		Img2Img:     "/sdapi/v1/img2img",
+		ExtraSingle: "/sdapi/v1/extra-single-image",
+		ExtraBatch:  "/sdapi/v1/extra-batch-images",
+		PNGInfo:     "/sdapi/v1/png-info",
+		Progress:    "/sdapi/v1/progress",
+		Interrogate: "/sdapi/v1/interrogate",
+		Interrupt:   "/sdapi/v1/interrupt",
+		Skip:        "/sdapi/v1/skip",
+		SDModels:    "/sdapi/v1/sd-models",
 	},
 	DefaultSampler:  sampler.EULER_A,
 	DefaultSteps:    28,
