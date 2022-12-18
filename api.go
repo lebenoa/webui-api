@@ -23,7 +23,7 @@ func New(newConfig ...Config) *api {
 	}
 }
 
-// Covenient function to build prompt.
+// Convenience function to build prompt.
 //
 // BuildPrompt("masterpiece", "best quality", "solo") -> "masterpiece, best quality, solo"
 func BuildPrompt(args ...string) string {
