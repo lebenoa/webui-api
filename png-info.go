@@ -11,7 +11,7 @@ func (a *api) PNGInfo(image string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Println(payload)
+	fmt.Println(string(payload))
 
 	data, err := a.post(a.Config.Path.PNGInfo, payload)
 	if err != nil {
