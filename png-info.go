@@ -20,7 +20,7 @@ func (a *api) PNGInfo(image string) (string, error) {
 	var result map[string]interface{}
 	err = json.Unmarshal(data, &result)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unmarshaling json: %v\nValue: %v", err, string(data))
 	}
 
 	info, ok := result["info"].(string)
