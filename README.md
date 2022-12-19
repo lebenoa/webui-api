@@ -9,7 +9,7 @@ High level API written in GO.
 - [x] Img2Img
 - [ ] Extras (Single)
 - [ ] Extras (Batch)
-- [ ] PNG Info
+- [x] PNG Info
 - [x] Progress
 - [ ] Interrogate
 - [ ] Interrupt
