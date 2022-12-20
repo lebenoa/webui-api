@@ -8,9 +8,9 @@ import (
 
 // Retrieve Generation Parameters from an image if any.
 //
-//	NOTE: the server will crash if the image has no generation parameters
+//   - NOTE: the server will crash if the image has no generation parameters
 //
-// SEE: https://github.com/Meonako/webui-api/wiki#png-info-api-fix for how to fix
+//   - SEE: https://github.com/Meonako/webui-api/wiki#png-info-api-fix for how to fix
 func (a *api) PNGInfo(image string) (string, error) {
 	payload, err := json.Marshal(map[string]string{"image": image})
 	if err != nil {
