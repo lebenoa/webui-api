@@ -8,6 +8,8 @@ type extraSingleImageRespond struct {
 	DecodedImage []byte // Base64-decoded image data in byte
 }
 
-func (er *extraSingleImageRespond) DecodeImage() ([]byte, error) {
-	return utils.DecodeBase64(er.Image)
+func (er *extraSingleImageRespond) DecodeImage() (decoded []byte, err error) {
+	decoded, err = utils.DecodeBase64(er.Image)
+	er.DecodedImage = decoded
+	return
 }
