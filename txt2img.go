@@ -70,7 +70,7 @@ func (data *Txt2Image) processDefault(a *api) {
 }
 
 // Generate Image based on Text. Return Respond struct and Error object.
-func (a *api) Text2Image(params Txt2Image) (res *txt2ImageRespond, err error) {
+func (a *api) Text2Image(params Txt2Image) (*txt2ImageRespond, error) {
 	params.processDefault(a)
 
 	payload, err := json.Marshal(params)
