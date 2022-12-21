@@ -1,6 +1,8 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/Meonako/webui-api/utils"
 	"github.com/goccy/go-json"
 )
@@ -110,6 +112,7 @@ func BuildBatchFromFiles(files ...string) ([]ImageData, error) {
 	imageData := []ImageData{}
 
 	for _, file := range files {
+		fmt.Println("Encoding:", file)
 		b64Data, err := utils.Base64FromFile(file)
 		if err != nil {
 			return []ImageData{}, err
