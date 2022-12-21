@@ -90,13 +90,13 @@ type ImageData struct {
 	Name string `json:"name"`
 }
 
-func (a *api) ExtraBatchImages(params ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
+func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err
 	}
 
-	data, err := a.post(a.Config.Path.ExtraSingle, payload)
+	data, err := a.post(a.Config.Path.ExtraBatch, payload)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err
 	}
