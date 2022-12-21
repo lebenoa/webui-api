@@ -108,8 +108,6 @@ func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extra
 		return &apiResp, err
 	}
 
-	for index := range apiResp.Images {
-		apiResp.DecodeImage(index)
-	}
+	apiResp.DecodeAllImages()
 	return &apiResp, err
 }
