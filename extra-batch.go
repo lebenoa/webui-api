@@ -86,8 +86,20 @@ type ImageData struct {
 
 	// I don't know what this is. I tried to read the source code what it does but I don't think I get it.
 	//
+	// **NOT CONFIRM** Perhaps it is the temp file name
 	//  Default: ""
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
+}
+
+// Convenience function to build []ImageData
+func BuildBatch(imageList ...string) []ImageData {
+	imageData := []ImageData{}
+
+	for _, image := range imageList {
+		imageData = append(imageData, ImageData{Data: "data:image/png;base64," + image})
+	}
+
+	return imageData
 }
 
 func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
