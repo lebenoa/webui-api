@@ -1,8 +1,6 @@
 package api
 
 import (
-	"github.com/Meonako/webui-api/utils"
-
 	"github.com/goccy/go-json"
 )
 
@@ -91,33 +89,11 @@ type ImageData struct {
 	//  Default: ""
 	Data string `json:"data"`
 
-	// I don't know what this is. I tried to read the source code what it does but I don't think I get it.
+	// I don't know what this is. I tried to read the source code for what it does but I don't think I get it.
 	//
 	// **NOT CONFIRM** Perhaps it is the temp file name
 	//  Default: ""
 	Name string `json:"name"`
-}
-
-// Convenience function to build []ImageData from base64-encoded image
-func BuildBatch(imageList ...string) (res []ImageData) {
-	for _, image := range imageList {
-		res = append(res, ImageData{Data: "data:image/png;base64," + image})
-	}
-
-	return
-}
-
-// Convenience function to build []ImageData from files
-func BuildBatchFromFiles(files ...string) (res []ImageData, err error) {
-	for _, path := range files {
-		encoded, err := utils.Base64FromFile(path)
-		if err != nil {
-			return []ImageData{}, err
-		}
-		res = append(res, ImageData{Data: "data:image/png;base64," + encoded})
-	}
-
-	return
 }
 
 func (a *api) ExtraBatchImages(params *ExtraBatchImages) (*extraBatchImagesRespond, error) {
