@@ -117,7 +117,7 @@ func BuildBatchFromFiles(files ...string) (res []ImageData, err error) {
 	return
 }
 
-func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
+func (a *api) ExtraBatchImages(params *ExtraBatchImages) (*extraBatchImagesRespond, error) {
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err
@@ -132,17 +132,6 @@ func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extra
 	err = json.Unmarshal(data, &apiResp)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err
-	}
-
-	if len(decode) <= 0 {
-		return &apiResp, err
-	}
-
-	if decode[0] {
-		_, err := apiResp.DecodeAllImages()
-		if err != nil {
-			return &extraBatchImagesRespond{}, err
-		}
 	}
 
 	return &apiResp, nil
