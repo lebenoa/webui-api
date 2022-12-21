@@ -1,6 +1,9 @@
 package api
 
-import "github.com/goccy/go-json"
+import (
+	"github.com/Meonako/webui-api/utils"
+	"github.com/goccy/go-json"
+)
 
 type ExtraBatchImages struct {
 	// Resize Mode: Scale By || Scale To. See: webup-api/extra package for helper.
@@ -91,7 +94,7 @@ type ImageData struct {
 	Name string `json:"name,omitempty"`
 }
 
-// Convenience function to build []ImageData
+// Convenience function to build []ImageData from base64-encoded image
 func BuildBatch(imageList ...string) []ImageData {
 	imageData := []ImageData{}
 
@@ -100,6 +103,21 @@ func BuildBatch(imageList ...string) []ImageData {
 	}
 
 	return imageData
+}
+
+// Convenience function to build []ImageData from files
+func BuildBatchFromFiles(files ...string) ([]ImageData, error) {
+	imageData := []ImageData{}
+
+	for _, file := range files {
+		b64Data, err := utils.Base64FromFile(file)
+		if err != nil {
+			return []ImageData{}, err
+		}
+		imageData = append(imageData, ImageData{Data: "data:image/png;base64," + b64Data})
+	}
+
+	return imageData, nil
 }
 
 func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
