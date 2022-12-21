@@ -80,6 +80,9 @@ type ExtraBatchImages struct {
 	//
 	//  Default: ""
 	ImagesList []ImageData `json:"imageList,omitempty"`
+
+	// If true, Will Decode Images after sending API requests
+	DecodeAfterResult bool `json:"-"`
 }
 
 type ImageData struct {
@@ -92,7 +95,7 @@ type ImageData struct {
 	//
 	// **NOT CONFIRM** Perhaps it is the temp file name
 	//  Default: ""
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 }
 
 // Convenience function to build []ImageData from base64-encoded image
@@ -132,6 +135,13 @@ func (a *api) ExtraBatchImages(params *ExtraBatchImages) (*extraBatchImagesRespo
 	err = json.Unmarshal(data, &apiResp)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err
+	}
+
+	if params.DecodeAfterResult {
+		_, err := apiResp.DecodeAllImages()
+		if err != nil {
+			return &extraBatchImagesRespond{}, err
+		}
 	}
 
 	return &apiResp, nil
