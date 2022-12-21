@@ -27,4 +27,16 @@ func BuildBatchFromFiles(files ...string) (res []api.ImageData, err error) {
 	return
 }
 
+// Convenience function to build []ImageData from files and IGNORE ANY ERRORS that might occur.
+//
+// This may be helpful when don't want your app to crash when file doesn't exists.
+func BuildBatchFromFilesIgnore(files ...string) (res []api.ImageData) {
+	for _, path := range files {
+		encoded, _ := utils.Base64FromFile(path)
+		res = append(res, api.ImageData{Data: "data:image/png;base64," + encoded})
+	}
+
+	return
+}
+
 // TODO: BuildBatchFromDir // Convenience function to build []ImageData from directory

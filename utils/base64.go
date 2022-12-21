@@ -24,6 +24,8 @@ func Base64FromFile(path string) (string, error) {
 }
 
 // Convenience function to encode image in any format to base64 and IGNORE ANY ERRORS that might occur.
+//
+// This may be helpful when don't want your app to crash when file doesn't exists.
 func Base64FromFileIgnore(path string) string {
 	fileBytes, _ := os.ReadFile(path)
 	return EncodeBase64(fileBytes)
