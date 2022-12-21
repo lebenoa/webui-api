@@ -1,9 +1,8 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/Meonako/webui-api/utils"
+
 	"github.com/goccy/go-json"
 )
 
@@ -97,30 +96,25 @@ type ImageData struct {
 }
 
 // Convenience function to build []ImageData from base64-encoded image
-func BuildBatch(imageList ...string) []ImageData {
-	imageData := []ImageData{}
-
+func BuildBatch(imageList ...string) (res []ImageData) {
 	for _, image := range imageList {
-		imageData = append(imageData, ImageData{Data: "data:image/png;base64," + image})
+		res = append(res, ImageData{Data: "data:image/png;base64," + image})
 	}
 
-	return imageData
+	return
 }
 
 // Convenience function to build []ImageData from files
-func BuildBatchFromFiles(files ...string) ([]ImageData, error) {
-	imageData := []ImageData{}
-
-	for _, file := range files {
-		fmt.Println("Encoding:", file)
-		b64Data, err := utils.Base64FromFile(file)
+func BuildBatchFromFiles(files ...string) (res []ImageData, err error) {
+	for _, path := range files {
+		encoded, err := utils.Base64FromFile(path)
 		if err != nil {
 			return []ImageData{}, err
 		}
-		imageData = append(imageData, ImageData{Data: "data:image/png;base64," + b64Data})
+		res = append(res, ImageData{Data: "data:image/png;base64," + encoded})
 	}
 
-	return imageData, nil
+	return
 }
 
 func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extraBatchImagesRespond, error) {
@@ -136,11 +130,20 @@ func (a *api) ExtraBatchImages(params *ExtraBatchImages, decode ...bool) (*extra
 
 	apiResp := extraBatchImagesRespond{}
 	err = json.Unmarshal(data, &apiResp)
+	if err != nil {
+		return &extraBatchImagesRespond{}, err
+	}
 
 	if len(decode) <= 0 {
 		return &apiResp, err
 	}
 
-	apiResp.DecodeAllImages()
-	return &apiResp, err
+	if decode[0] {
+		_, err := apiResp.DecodeAllImages()
+		if err != nil {
+			return &extraBatchImagesRespond{}, err
+		}
+	}
+
+	return &apiResp, nil
 }
