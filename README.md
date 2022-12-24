@@ -8,7 +8,7 @@ High level API written in GO.
 - [x] Txt2Img
 - [x] Img2Img
 - [x] Extras (Single)
-- [ ] Extras (Batch)
+- [x] Extras (Batch)
 - [x] PNG Info
 - [x] Progress
 - [ ] Interrogate
