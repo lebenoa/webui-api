@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -30,22 +31,40 @@ func BuildPrompt(args ...string) string {
 	return strings.Join(args, ", ")
 }
 
-func (a *api) get(path string) ([]byte, error) {
+func (a *api) get(path string) (body []byte, err error) {
 	resp, err := http.Get(a.Config.BaseURL + path)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	return io.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("%v", string(body))
+	}
+
+	return
 }
 
-func (a *api) post(path string, data []byte) ([]byte, error) {
+func (a *api) post(path string, data []byte) (body []byte, err error) {
 	resp, err := http.Post(a.Config.BaseURL+path, "application/json", bytes.NewReader(data))
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	return io.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("%v", string(body))
+	}
+
+	return
 }

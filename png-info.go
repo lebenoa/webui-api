@@ -20,8 +20,6 @@ func (a *api) PNGInfo(image string) (string, error) {
 	data, err := a.post(a.Config.Path.PNGInfo, payload)
 	if err != nil {
 		return "", err
-	} else if string(data) == "Internal Server Error" {
-		return "", fmt.Errorf("%v", "500 internal server error")
 	}
 
 	var result map[string]interface{}
