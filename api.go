@@ -36,18 +36,8 @@ func (a *api) get(path string) (body []byte, err error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
-	body, err = io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("%v", string(body))
-	}
-
-	return
+	return common(resp)
 }
 
 func (a *api) post(path string, data []byte) (body []byte, err error) {
@@ -55,8 +45,12 @@ func (a *api) post(path string, data []byte) (body []byte, err error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
+	return common(resp)
+}
+
+func common(resp *http.Response) (body []byte, err error) {
+	defer resp.Body.Close()
 	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
