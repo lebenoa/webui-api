@@ -1,6 +1,7 @@
 # AUTOMATIC1111's Webui API
 
-High level API written in GO.
+AUTOMATIC1111's Webui **API Wrapper** for **GO**. So you don't have to do it yourself.   
+Aim to be as easy to use as possible ***without*** performance in mind.  
 
 ## Currently Support (And also roadmap)
 
