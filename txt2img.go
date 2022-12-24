@@ -41,36 +41,32 @@ func (data *Txt2Image) processDefault(a *api) {
 	}
 
 	if data.Width == 0 {
-		data.Width = a.Config.DefaultWidth
-	} else if data.Width%64 != 0 {
-		data.Width = data.Width - (data.Width % 64)
+		data.Width = a.Config.Default.Width
 	}
 
 	if data.Height == 0 {
-		data.Height = a.Config.DefaultHeight
-	} else if data.Height%64 != 0 {
-		data.Height = data.Height - (data.Height % 64)
+		data.Height = a.Config.Default.Height
 	}
 
 	if data.CFGScale == 0 {
-		data.CFGScale = a.Config.DefaultCFGScale
+		data.CFGScale = a.Config.Default.CFGScale
 	}
 
 	if data.Steps == 0 {
-		data.Steps = a.Config.DefaultSteps
+		data.Steps = a.Config.Default.Steps
 	}
 
 	if data.SamplerName == "" {
-		data.SamplerName = a.Config.DefaultSampler
+		data.SamplerName = a.Config.Default.Sampler
 	}
 
 	if data.SamplerIndex == "" {
-		data.SamplerIndex = a.Config.DefaultSampler
+		data.SamplerIndex = a.Config.Default.Sampler
 	}
 }
 
 // Generate Image based on Text. Return Respond struct and Error object.
-func (a *api) Text2Image(params Txt2Image) (*txt2ImageRespond, error) {
+func (a *api) Text2Image(params *Txt2Image) (*txt2ImageRespond, error) {
 	params.processDefault(a)
 
 	payload, err := json.Marshal(params)

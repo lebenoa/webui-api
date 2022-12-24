@@ -11,33 +11,38 @@ type Config struct {
 	// API path is stored here
 	Path *APIPath
 
-	// If true, Field that starts with "Default" will be use everytime you make a request and if that field is empty/zero values
+	// If true, Value of "Default" Field will be use everytime you make a request and if that field is empty/zero values
 	UseDefault bool
 
+	// Default Value are store here.
+	Default *Default
+}
+
+type Default struct {
 	// Sampling Method or Sampler (e.g. Euler a, DPM++ 2M Karras). You can type it in yourself or use built-in Helper Package: sampler
 	//
-	// - Default: Euler a
-	DefaultSampler string
+	//   Default: "Euler a"
+	Sampler string
 
 	// Sampling Steps (e.g. 20, 120)
 	//
-	// - Default: 28
-	DefaultSteps int
+	//   Default: 20
+	Steps int
 
-	// Classifier-Free Guidance Scale (e.g. 7, 12)
+	// Classifier-Free Guidance Scale (e.g. 7, 12.0)
 	//
-	// - Default: 7
-	DefaultCFGScale float64
+	//   Default: 7.0
+	CFGScale float64
 
 	// Width of the image (e.g. 512, 1024)
 	//
-	// - Default: 512
-	DefaultWidth int
+	//   Default: 512
+	Width int
 
 	// Height of the image (e.g. 512, 1024)
 	//
-	// - Default: 512
-	DefaultHeight int
+	//   Default: 512
+	Height int
 }
 
 type APIPath struct {
@@ -106,11 +111,24 @@ var DefaultConfig = Config{
 		Skip:        "/sdapi/v1/skip",
 		SDModels:    "/sdapi/v1/sd-models",
 	},
-	DefaultSampler:  sampler.EULER_A,
-	DefaultSteps:    28,
-	DefaultCFGScale: 7,
-	DefaultWidth:    512,
-	DefaultHeight:   512,
+}
+
+/*
+Default Value.
+  Sampler  = sampler.EULER_A,
+  Steps    = 28,
+  CFGScale = 7,
+  Width    = 512,
+  Height   = 512,
+*/
+func DefaultValue() *Default {
+	return &Default{
+		Sampler:  sampler.EULER_A,
+		Steps:    28,
+		CFGScale: 7,
+		Width:    512,
+		Height:   512,
+	}
 }
 
 func setDefault(conf ...Config) Config {
@@ -124,32 +142,16 @@ func setDefault(conf ...Config) Config {
 		return config
 	}
 
+	if config.UseDefault && config.Default == nil {
+		panic("useDefault is true, but no default value is passed")
+	}
+
 	if config.BaseURL == "" {
 		config.BaseURL = DefaultConfig.BaseURL
 	}
 
 	if config.Path == nil {
 		config.Path = DefaultConfig.Path
-	}
-
-	if config.DefaultSampler == "" {
-		config.DefaultSampler = DefaultConfig.DefaultSampler
-	}
-
-	if config.DefaultSteps == 0 {
-		config.DefaultSteps = DefaultConfig.DefaultSteps
-	}
-
-	if config.DefaultCFGScale == 0 {
-		config.DefaultCFGScale = DefaultConfig.DefaultCFGScale
-	}
-
-	if config.DefaultWidth == 0 {
-		config.DefaultWidth = DefaultConfig.DefaultWidth
-	}
-
-	if config.DefaultHeight == 0 {
-		config.DefaultHeight = DefaultConfig.DefaultHeight
 	}
 
 	return config

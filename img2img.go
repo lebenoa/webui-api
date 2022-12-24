@@ -48,35 +48,31 @@ func (i *Img2Img) processDefault(a *api) {
 	}
 
 	if i.Width == 0 {
-		i.Width = a.Config.DefaultWidth
-	} else if i.Width%64 != 0 {
-		i.Width = i.Width - (i.Width % 64)
+		i.Width = a.Config.Default.Width
 	}
 
 	if i.Height == 0 {
-		i.Height = a.Config.DefaultHeight
-	} else if i.Height%64 != 0 {
-		i.Height = i.Height - (i.Height % 64)
+		i.Height = a.Config.Default.Height
 	}
 
 	if i.CFGScale == 0 {
-		i.CFGScale = a.Config.DefaultCFGScale
+		i.CFGScale = a.Config.Default.CFGScale
 	}
 
 	if i.Steps == 0 {
-		i.Steps = a.Config.DefaultSteps
+		i.Steps = a.Config.Default.Steps
 	}
 
 	if i.SamplerName == "" {
-		i.SamplerName = a.Config.DefaultSampler
+		i.SamplerName = a.Config.Default.Sampler
 	}
 
 	if i.SamplerIndex == "" {
-		i.SamplerIndex = a.Config.DefaultSampler
+		i.SamplerIndex = a.Config.Default.Sampler
 	}
 }
 
-func (a *api) Image2Image(i Img2Img) (*img2imgRespond, error) {
+func (a *api) Image2Image(i *Img2Img) (*img2imgRespond, error) {
 	i.processDefault(a)
 
 	payload, err := json.Marshal(i)
