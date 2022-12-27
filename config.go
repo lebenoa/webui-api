@@ -91,6 +91,11 @@ type APIPath struct {
 	//  - Default: /sdapi/v1/skip
 	Skip string
 
+	// Path to options API
+	//
+	//  - Default: /sdapi/v1/options
+	Options string
+
 	// Path to sd-models API
 	//
 	//  - Default: /sdapi/v1/sd-models
