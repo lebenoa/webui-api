@@ -17,13 +17,13 @@ type Options struct {
 	GridExtendedFilename               bool     `json:"grid_extended_filename,omitempty"`
 	GridOnlyIfMultiple                 bool     `json:"grid_only_if_multiple,omitempty"`
 	GridPreventEmptySpots              bool     `json:"grid_prevent_empty_spots,omitempty"`
-	NRows                              int      `json:"n_rows,omitempty"`
+	NRows                              float64  `json:"n_rows,omitempty"`
 	EnablePnginfo                      bool     `json:"enable_pnginfo,omitempty"`
 	SaveTxt                            bool     `json:"save_txt,omitempty"`
 	SaveImagesBeforeFaceRestoration    bool     `json:"save_images_before_face_restoration,omitempty"`
 	SaveImagesBeforeHighresFix         bool     `json:"save_images_before_highres_fix,omitempty"`
 	SaveImagesBeforeColorCorrection    bool     `json:"save_images_before_color_correction,omitempty"`
-	JpegQuality                        int      `json:"jpeg_quality,omitempty"`
+	JpegQuality                        float64  `json:"jpeg_quality,omitempty"`
 	ExportFor4chan                     bool     `json:"export_for_4chan,omitempty"`
 	UseOriginalNameBatch               bool     `json:"use_original_name_batch,omitempty"`
 	UseUpscalerNameAsSuffix            bool     `json:"use_upscaler_name_as_suffix,omitempty"`
@@ -43,20 +43,20 @@ type Options struct {
 	GridSaveToDirs                     bool     `json:"grid_save_to_dirs,omitempty"`
 	UseSaveToDirsForUi                 bool     `json:"use_save_to_dirs_for_ui,omitempty"`
 	DirectoriesFilenamePattern         string   `json:"directories_filename_pattern,omitempty"`
-	DirectoriesMaxPromptWords          int      `json:"directories_max_prompt_words,omitempty"`
-	ESRGANTile                         int      `json:"ESRGAN_tile,omitempty"`
-	ESRGANTileOverlap                  int      `json:"ESRGAN_tile_overlap,omitempty"`
+	DirectoriesMaxPromptWords          float64  `json:"directories_max_prompt_words,omitempty"`
+	ESRGANTile                         float64  `json:"ESRGAN_tile,omitempty"`
+	ESRGANTileOverlap                  float64  `json:"ESRGAN_tile_overlap,omitempty"`
 	RealesrganEnabledModels            []string `json:"realesrgan_enabled_models,omitempty"`
 	UpscalerForImg2Img                 string   `json:"upscaler_for_img2img,omitempty"`
 	UseScaleLatentForHiresFix          bool     `json:"use_scale_latent_for_hires_fix,omitempty"`
-	LdsrSteps                          int      `json:"ldsr_steps,omitempty"`
+	LdsrSteps                          float64  `json:"ldsr_steps,omitempty"`
 	LdsrCached                         bool     `json:"ldsr_cached,omitempty"`
-	SWINTile                           int      `json:"SWIN_tile,omitempty"`
-	SWINTileOverlap                    int      `json:"SWIN_tile_overlap,omitempty"`
+	SWINTile                           float64  `json:"SWIN_tile,omitempty"`
+	SWINTileOverlap                    float64  `json:"SWIN_tile_overlap,omitempty"`
 	FaceRestorationModel               string   `json:"face_restoration_model,omitempty"`
 	CodeFormerWeight                   float64  `json:"code_former_weight,omitempty"`
 	FaceRestorationUnload              bool     `json:"face_restoration_unload,omitempty"`
-	MemmonPollRate                     int      `json:"memmon_poll_rate,omitempty"`
+	MemmonPollRate                     float64  `json:"memmon_poll_rate,omitempty"`
 	SamplesLogStdout                   bool     `json:"samples_log_stdout,omitempty"`
 	MultipleTqdm                       bool     `json:"multiple_tqdm,omitempty"`
 	UnloadModelsWhenTraining           bool     `json:"unload_models_when_training,omitempty"`
@@ -64,11 +64,11 @@ type Options struct {
 	SaveOptimizerState                 bool     `json:"save_optimizer_state,omitempty"`
 	DatasetFilenameWordRegex           string   `json:"dataset_filename_word_regex,omitempty"`
 	DatasetFilenameJoinString          string   `json:"dataset_filename_join_string,omitempty"`
-	TrainingImageRepeatsPerEpoch       int      `json:"training_image_repeats_per_epoch,omitempty"`
-	TrainingWriteCsvEvery              int      `json:"training_write_csv_every,omitempty"`
+	TrainingImageRepeatsPerEpoch       float64  `json:"training_image_repeats_per_epoch,omitempty"`
+	TrainingWriteCsvEvery              float64  `json:"training_write_csv_every,omitempty"`
 	TrainingXattentionOptimizations    bool     `json:"training_xattention_optimizations,omitempty"`
 	SdModelCheckpoint                  string   `json:"sd_model_checkpoint,omitempty"`
-	SdCheckpointCache                  int      `json:"sd_checkpoint_cache,omitempty"`
+	SdCheckpointCache                  float64  `json:"sd_checkpoint_cache,omitempty"`
 	SdVae                              string   `json:"sd_vae,omitempty"`
 	SdVaeAsDefault                     bool     `json:"sd_vae_as_default,omitempty"`
 	SdHypernetwork                     string   `json:"sd_hypernetwork,omitempty"`
@@ -82,23 +82,23 @@ type Options struct {
 	EnableEmphasis                     bool     `json:"enable_emphasis,omitempty"`
 	UseOldEmphasisImplementation       bool     `json:"use_old_emphasis_implementation,omitempty"`
 	EnableBatchSeeds                   bool     `json:"enable_batch_seeds,omitempty"`
-	CommaPaddingBacktrack              int      `json:"comma_padding_backtrack,omitempty"`
-	CLIPStopAtLastLayers               int      `json:"CLIP_stop_at_last_layers,omitempty"`
+	CommaPaddingBacktrack              float64  `json:"comma_padding_backtrack,omitempty"`
+	CLIPStopAtLastLayers               float64  `json:"CLIP_stop_at_last_layers,omitempty"`
 	RandomArtistCategories             []string `json:"random_artist_categories,omitempty"`
 	InterrogateKeepModelsInMemory      bool     `json:"interrogate_keep_models_in_memory,omitempty"`
 	InterrogateUseBuiltinArtists       bool     `json:"interrogate_use_builtin_artists,omitempty"`
 	InterrogateReturnRanks             bool     `json:"interrogate_return_ranks,omitempty"`
-	InterrogateClipNumBeams            int      `json:"interrogate_clip_num_beams,omitempty"`
-	InterrogateClipMinLength           int      `json:"interrogate_clip_min_length,omitempty"`
-	InterrogateClipMaxLength           int      `json:"interrogate_clip_max_length,omitempty"`
-	InterrogateClipDictLimit           int      `json:"interrogate_clip_dict_limit,omitempty"`
+	InterrogateClipNumBeams            float64  `json:"interrogate_clip_num_beams,omitempty"`
+	InterrogateClipMinLength           float64  `json:"interrogate_clip_min_length,omitempty"`
+	InterrogateClipMaxLength           float64  `json:"interrogate_clip_max_length,omitempty"`
+	InterrogateClipDictLimit           float64  `json:"interrogate_clip_dict_limit,omitempty"`
 	InterrogateDeepbooruScoreThreshold float64  `json:"interrogate_deepbooru_score_threshold,omitempty"`
 	DeepbooruSortAlpha                 bool     `json:"deepbooru_sort_alpha,omitempty"`
 	DeepbooruUseSpaces                 bool     `json:"deepbooru_use_spaces,omitempty"`
 	DeepbooruEscape                    bool     `json:"deepbooru_escape,omitempty"`
 	DeepbooruFilterTags                string   `json:"deepbooru_filter_tags,omitempty"`
 	ShowProgressbar                    bool     `json:"show_progressbar,omitempty"`
-	ShowProgressEveryNSteps            int      `json:"show_progress_every_n_steps,omitempty"`
+	ShowProgressEveryNSteps            float64  `json:"show_progress_every_n_steps,omitempty"`
 	ShowProgressType                   string   `json:"show_progress_type,omitempty"`
 	ShowProgressGrid                   bool     `json:"show_progress_grid,omitempty"`
 	ReturnGrid                         bool     `json:"return_grid,omitempty"`
