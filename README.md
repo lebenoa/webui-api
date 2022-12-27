@@ -13,8 +13,8 @@ Aim to be as easy to use as possible ***without*** performance in mind.
 - [x] PNG Info
 - [x] Progress
 - [ ] Interrogate
-- [ ] Interrupt
-- [ ] Skip
+- [x] Interrupt
+- [x] Skip
 - [ ] Options
 - [x] Get Available Model(s)
  
