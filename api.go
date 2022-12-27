@@ -50,7 +50,7 @@ func (a *api) SetAuth(username, password string) {
 
 // Convenience function to build prompt.
 //
-// BuildPrompt("masterpiece", "best quality", "solo") -> "masterpiece, best quality, solo"
+//	BuildPrompt("masterpiece", "best quality", "solo") -> "masterpiece, best quality, solo"
 func BuildPrompt(args ...string) string {
 	return strings.Join(args, ", ")
 }
