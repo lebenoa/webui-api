@@ -1,6 +1,8 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/goccy/go-json"
 )
 
@@ -135,6 +137,9 @@ func (a *api) Options() (result *Options, err error) {
 	}
 
 	err = json.Unmarshal(resp, &result)
+	if err != nil {
+		err = fmt.Errorf("err: %v\nValue: %v", err, string(resp))
+	}
 	return
 }
 
