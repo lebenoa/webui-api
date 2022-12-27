@@ -114,6 +114,7 @@ var DefaultConfig = Config{
 		Interrogate: "/sdapi/v1/interrogate",
 		Interrupt:   "/sdapi/v1/interrupt",
 		Skip:        "/sdapi/v1/skip",
+		Options:     "/sdapi/v1/options",
 		SDModels:    "/sdapi/v1/sd-models",
 	},
 }
