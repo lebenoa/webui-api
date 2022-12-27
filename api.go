@@ -62,8 +62,6 @@ func (a *api) get(path string) (body []byte, err error) {
 		return nil, err
 	}
 
-	a.setAuth(req)
-
 	return a.exec(req)
 }
 
@@ -75,7 +73,6 @@ func (a *api) post(path string, data []byte) (body []byte, err error) {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	a.setAuth(req)
 
 	return a.exec(req)
 }
