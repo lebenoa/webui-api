@@ -5,7 +5,7 @@ Aim to be as easy to use as possible ***without*** performance in mind.
 
 ## Currently Support (And also roadmap)
 
-- [ ] Auth Related
+- [x] Auth Related ( **DIDNT TEST** | Please [open an issue](https://github.com/Meonako/webui-api/issues/new) if you encounter any problem )
 - [x] Txt2Img
 - [x] Img2Img
 - [x] Extras (Single)
@@ -15,7 +15,7 @@ Aim to be as easy to use as possible ***without*** performance in mind.
 - [ ] Interrogate
 - [x] Interrupt
 - [x] Skip
-- [ ] Options
+- [x] Options
 - [x] Get Available Model(s)
  
 ## Getting Started
@@ -57,6 +57,7 @@ var DefaultConfig = Config{
         Interrogate: "/sdapi/v1/interrogate",
         Interrupt:   "/sdapi/v1/interrupt",
         Skip:        "/sdapi/v1/skip",
+        Options:     "/sdapi/v1/options",
         SDModels:    "/sdapi/v1/sd-models",
     },
     DefaultSampler:  sampler.EULER_A,
