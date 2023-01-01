@@ -92,7 +92,7 @@ func (tr *txt2ImageRespond) Upscale(params *ExtraBatchImages) (*extraBatchImages
 
 func (tr *txt2ImageRespond) buildBatch() (res []ImageData) {
 	for _, image := range tr.Images {
-		res = append(res, ImageData{Data: "data:image/png;base64" + image})
+		res = append(res, ImageData{Data: "data:image/png;base64," + image})
 	}
 	return
 }
