@@ -1,11 +1,11 @@
 # AUTOMATIC1111's Webui API
 
-AUTOMATIC1111's Webui **API Wrapper** for **GO**. So you don't have to do it yourself.   
+AUTOMATIC1111's Webui **API** for **GO**. So you don't have to do it yourself.   
 Aim to be as easy to use as possible ***without*** performance in mind.  
 
 ## Currently Support (And also roadmap)
 
-- [x] Auth Related ( **DIDNT TEST** | Please [open an issue](https://github.com/Meonako/webui-api/issues/new) if you encounter any problem )
+- [x] Auth Related ( **DIDNT TEST** | Please [open an issue](https://github.com/Meonako/webui-api/issues/new) if you have encounter any problem )
 - [x] Txt2Img
 - [x] Img2Img
 - [x] Extras (Single)
@@ -24,12 +24,14 @@ Aim to be as easy to use as possible ***without*** performance in mind.
 go get github.com/Meonako/webui-api
 ```
 Then Import
-
----
+```go
+import (
+    ...
+    "github.com/Meonako/webui-api"
+)
+```
 
 _OR_
-
----
 
 Simply add package to import like this
 ```go
@@ -40,6 +42,89 @@ import (
 ```
 
 Then run `go mod tidy`
+
+---
+
+Initialize it like this
+
+```go
+API := api.New()
+```
+
+Without passing anything it'll return `http://127.0.0.1:7860` and all `V1 API path` as default.  
+If you wanna change it, just pass in a new config like this
+
+```go
+API := api.New(api.Config{
+    BaseURL: "colab.google.link",
+    Path: &api.APIPath{
+        Txt2Img: "/new/api/path/txt2img",
+    },
+})
+```
+**Be aware, if you change `Path` field, you'll have manually add all other path.**  
+Say for above example, it'll be only `Txt2Img` path in there. When you call `Img2Img`, you'll get an `unexpected response`/`error`. or worse like `panic`
+
+
+Now that finished, we can start using it now. Let's say we'll do `TXT2IMG`
+```go
+resp, err := API.Text2Image(&api.Txt2Image{
+    Prompt: "masterpiece, best quality, solo, cute, blue hair, purple eyes",
+    NegativePrompt: "lowres, bad anatomy, low quality, normal quality, worst quality",
+})
+```
+**Keep in mind that this will block your app until API done generating image(s)**
+
+When it's done, check for the `error` and then we can do
+
+```go
+imageList, err := resp.DecodeAllImages()
+```
+Check for the `error` and then we can save it to disk
+
+```go
+for index, image := range imageList {
+    file, err := os.OpenFile(
+        fmt.Sprintf("txt2img-result %v.png", index), 
+        os.O_WRONLY|os.O_CREATE|os.O_TRUNC,
+        0777,
+    )
+    if err != nil {
+        panic(err)
+    }
+    
+    file.Write(image)
+    file.Close()
+}
+```
+
+**Hol'up, one tip tho. If you really care about performance, you can decode it yourself like this**  
+> Before called `resp.DecodeAllImages()`
+
+```go
+for index range resp.Images {
+    decoded,  err := resp.DecodeImage(index)
+    if err != nil {
+        panic(err)
+    }
+    
+    file, err := os.OpenFile(
+        fmt.Sprintf("txt2img-result %v.png", index), 
+        os.O_WRONLY|os.O_CREATE|os.O_TRUNC,
+        0777,
+    )
+    if err != nil {
+        panic(err)
+    }
+    
+    file.Write(image)
+    file.Close()
+}
+```
+
+## Example
+
+Move [HERE](https://github.com/Meonako/webui-api/wiki/Example)
 
 ## Default Value
 ```go
@@ -62,10 +147,6 @@ var DefaultConfig = Config{
     },
 }
 ```
-
-## Example
-
-Move [HERE](https://github.com/Meonako/webui-api/wiki/Example)
 
 ## Credits
 - [go-json](https://github.com/goccy/go-json) / [goccy](https://github.com/goccy) | for fast JSON encode/decode
