@@ -23,13 +23,14 @@ type api struct {
 
 var (
 	httpClient = &http.Client{}
-	defaultAPI = New()
+	API        *api
 )
 
 func New(newConfig ...Config) *api {
-	return &api{
+	API = &api{
 		Config: setDefault(newConfig...),
 	}
+	return API
 }
 
 // Set username and password for use when making request. Equivalent to

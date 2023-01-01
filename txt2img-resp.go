@@ -87,7 +87,7 @@ func (tr *txt2ImageRespond) Upscale(params *ExtraBatchImages) (*extraBatchImages
 		params.ImagesList = tr.buildBatch()
 	}
 
-	return defaultAPI.ExtraBatchImages(params)
+	return API.ExtraBatchImages(params)
 }
 
 func (tr *txt2ImageRespond) buildBatch() (res []ImageData) {
