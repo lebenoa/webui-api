@@ -62,8 +62,8 @@ API := api.New(api.Config{
     },
 })
 ```
-**Be aware, if you change `Path` field, you'll have manually add all other path.**  
-Say for above example, it'll be only `Txt2Img` path in there. When you call `Img2Img`, you'll get an `unexpected response`/`error`. or worse like `panic`
+**Be aware, if you change `Path` field, you'll have to manually add all other path.**  
+> Say for above example, it'll be only `Txt2Img` path in there. When you call `Img2Img`, you'll get an `unexpected response`/`error` or worse like `panic`
 
 
 Now that finished, we can start using it now. Let's say we'll do `TXT2IMG`
@@ -73,7 +73,7 @@ resp, err := API.Text2Image(&api.Txt2Image{
     NegativePrompt: "lowres, bad anatomy, low quality, normal quality, worst quality",
 })
 ```
-**Keep in mind that this will block your app until API done generating image(s)**
+> **Keep in mind that this will block your app until API done generating image(s)**
 
 When it's done, check for the `error` and then we can do
 
@@ -102,8 +102,8 @@ for index, image := range imageList {
 > Before called `resp.DecodeAllImages()`
 
 ```go
-for index range resp.Images {
-    decoded,  err := resp.DecodeImage(index)
+for index := range resp.Images {
+    decoded, err := resp.DecodeImage(index)
     if err != nil {
         panic(err)
     }
