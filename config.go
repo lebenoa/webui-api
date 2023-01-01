@@ -132,14 +132,12 @@ Default Value.
 	Width    = 512,
 	Height   = 512,
 */
-func DefaultValue() *Default {
-	return &Default{
-		Sampler:  sampler.EULER_A,
-		Steps:    28,
-		CFGScale: 7,
-		Width:    512,
-		Height:   512,
-	}
+var DefaultValue = &Default{
+	Sampler:  sampler.EULER_A,
+	Steps:    28,
+	CFGScale: 7,
+	Width:    512,
+	Height:   512,
 }
 
 func setDefault(conf ...Config) Config {
