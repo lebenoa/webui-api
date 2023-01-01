@@ -161,11 +161,6 @@ func (a *api) OptionsWithExtensionOptions() (result map[string]any, err error) {
 //
 //	SEE: SetOptionsWithExtensionOptions() for extension options settings.
 func (a *api) SetOptions(params *Options) error {
-	// argsType := fmt.Sprintf("%T", params)
-	// if !strings.HasSuffix(argsType, "Options") || !strings.HasPrefix(argsType, "map[string]") {
-	// 	return nil, fmt.Errorf("not an valid args: %T", argsType)
-	// }
-
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return err
@@ -175,11 +170,11 @@ func (a *api) SetOptions(params *Options) error {
 	return err
 }
 
-// shorthand for map[string]any
+// Shorthand for map[string]any
 type Opt map[string]any
 
 // Receive api.Opt (map[string]any) as argument.
-func (a *api) SetOptionsWithExtensionOptions(params map[string]any) error {
+func (a *api) SetOptionsWithExtensionOptions(params Opt) error {
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return err
