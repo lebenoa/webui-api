@@ -144,10 +144,6 @@ func setDefault(conf ...Config) Config {
 
 	config := conf[0]
 
-	if !config.UseDefault {
-		return config
-	}
-
 	if config.UseDefault && config.Default == nil {
 		panic("useDefault is true, but no default value is passed")
 	}
