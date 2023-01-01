@@ -23,7 +23,9 @@ type api struct {
 
 var (
 	httpClient = &http.Client{}
-	API        *api
+	API        = &api{
+		Config: setDefault(),
+	}
 )
 
 func New(newConfig ...Config) *api {
