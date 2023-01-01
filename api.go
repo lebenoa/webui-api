@@ -77,16 +77,6 @@ func (a *api) post(path string, data []byte) (body []byte, err error) {
 	return a.exec(req)
 }
 
-// Set HTTP Basic Auth.
-func (a *api) setAuth(req *http.Request) {
-	if a.Auth != "" {
-		credit := strings.Split(a.Auth, ", ")
-		req.SetBasicAuth(credit[0], credit[1])
-	} else if a.Username != "" && a.Password != "" {
-		req.SetBasicAuth(a.Username, a.Password)
-	}
-}
-
 // Send Request.
 func (a *api) exec(req *http.Request) ([]byte, error) {
 	a.setAuth(req)
@@ -97,6 +87,16 @@ func (a *api) exec(req *http.Request) ([]byte, error) {
 	}
 
 	return readBody(resp)
+}
+
+// Set HTTP Basic Auth.
+func (a *api) setAuth(req *http.Request) {
+	if a.Auth != "" {
+		credit := strings.Split(a.Auth, ", ")
+		req.SetBasicAuth(credit[0], credit[1])
+	} else if a.Username != "" && a.Password != "" {
+		req.SetBasicAuth(a.Username, a.Password)
+	}
 }
 
 // Read response body.
