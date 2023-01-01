@@ -1,6 +1,10 @@
 package api
 
-import "github.com/Meonako/webui-api/sampler"
+import (
+	"strings"
+
+	"github.com/Meonako/webui-api/sampler"
+)
 
 type Config struct {
 	// URL to API endpoint (e.g. http://127.0.0.1:7860, https://b645a912.gradio.app)
@@ -121,11 +125,12 @@ var DefaultConfig = Config{
 
 /*
 Default Value.
-  Sampler  = sampler.EULER_A,
-  Steps    = 28,
-  CFGScale = 7,
-  Width    = 512,
-  Height   = 512,
+
+	Sampler  = sampler.EULER_A,
+	Steps    = 28,
+	CFGScale = 7,
+	Width    = 512,
+	Height   = 512,
 */
 func DefaultValue() *Default {
 	return &Default{
@@ -151,6 +156,8 @@ func setDefault(conf ...Config) Config {
 	if config.BaseURL == "" {
 		config.BaseURL = DefaultConfig.BaseURL
 	}
+
+	config.BaseURL = strings.TrimSuffix(config.BaseURL, "/")
 
 	if config.Path == nil {
 		config.Path = DefaultConfig.Path
