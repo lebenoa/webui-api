@@ -7,6 +7,7 @@ type Interrogate struct {
 	Model string `json:"model"`
 }
 
+// Get captions from an image.
 func (a *api) Interrogate(params *Interrogate) (string, error) {
 	payload, err := json.Marshal(params)
 	if err != nil {
