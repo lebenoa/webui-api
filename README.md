@@ -60,11 +60,6 @@ var DefaultConfig = Config{
         Options:     "/sdapi/v1/options",
         SDModels:    "/sdapi/v1/sd-models",
     },
-    DefaultSampler:  sampler.EULER_A,
-    DefaultSteps:    28,
-    DefaultCFGScale: 7,
-    DefaultWidth:    512,
-    DefaultHeight:   512,
 }
 ```
 
