@@ -23,18 +23,12 @@ type api struct {
 
 var (
 	httpClient = &http.Client{}
-	defaultAPI = api{}
+	defaultAPI = New()
 )
 
 func New(newConfig ...Config) *api {
-	if len(newConfig) <= 0 {
-		return &api{
-			Config: Config{},
-		}
-	}
-
 	return &api{
-		Config: setDefault(newConfig[0]),
+		Config: setDefault(newConfig...),
 	}
 }
 
