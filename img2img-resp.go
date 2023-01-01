@@ -78,3 +78,21 @@ func (tr *img2imgRespond) DecodeInfo() (res map[string]any, err error) {
 	err = json.Unmarshal([]byte(tr.Info), &res)
 	return
 }
+
+// Upscale any images in "Images" field.
+//
+//	Leave `params.ImagesList` field empty to upscale all images.
+func (tr *img2imgRespond) Upscale(params *ExtraBatchImages) (*extraBatchImagesRespond, error) {
+	if params.ImagesList == nil || len(params.ImagesList) <= 0 {
+		params.ImagesList = tr.buildBatch()
+	}
+
+	return defaultAPI.ExtraBatchImages(params)
+}
+
+func (tr *img2imgRespond) buildBatch() (res []ImageData) {
+	for _, image := range tr.Images {
+		res = append(res, ImageData{Data: "data:image/png;base64," + image})
+	}
+	return
+}
