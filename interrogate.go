@@ -18,5 +18,8 @@ func (a *api) Interrogate(params *Interrogate) (string, error) {
 		return "", err
 	}
 
-	return string(resp), nil
+	result := map[string]string{}
+	json.Unmarshal(resp, &result)
+
+	return result["caption"], nil
 }

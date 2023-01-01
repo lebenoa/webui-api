@@ -2,7 +2,7 @@ package interrogate
 
 const (
 	CLIP      = "clip"
-	DEEPBOORU = "deepbooru"
+	DEEPBOORU = "deepdanbooru"
 )
 
 type model struct {
