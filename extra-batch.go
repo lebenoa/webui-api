@@ -76,7 +76,7 @@ type ExtraBatchImages struct {
 
 	// Base64-encoded image to be upscale.
 	//
-	//  Default: ""
+	//  Default: Empty
 	ImagesList []ImageData `json:"imageList,omitempty"`
 
 	// If true, Will Decode Images after sending API requests
