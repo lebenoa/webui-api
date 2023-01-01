@@ -20,6 +20,8 @@ Aim to be as easy to use as possible ***without*** performance in mind.
  
 ## Getting Started
 
+***Required [Stable Diffusion Web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui) running with `--api` argument***
+
 ```
 go get github.com/Meonako/webui-api
 ```
