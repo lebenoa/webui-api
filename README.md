@@ -12,7 +12,7 @@ Aim to be as easy to use as possible ***without*** performance in mind.
 - [x] Extras (Batch)
 - [x] PNG Info
 - [x] Progress
-- [ ] Interrogate
+- [x] Interrogate
 - [x] Interrupt
 - [x] Skip
 - [x] Options
