@@ -67,6 +67,7 @@ API := api.New(api.Config{
 **Be aware, if you change `Path` field, you'll have to manually add all other path.**  
 > Say for above example, it'll be only `Txt2Img` path in there. When you call `Img2Img`, you'll get an `unexpected response`/`error` or worse like `panic`
 
+---
 
 Now that finished, we can start using it now. Let's say we'll do `TXT2IMG`
 ```go
@@ -76,6 +77,8 @@ resp, err := API.Text2Image(&api.Txt2Image{
 })
 ```
 > **Keep in mind that this will block your app until API done generating image(s)**
+
+---
 
 When it's done, check for the `error` and then we can do
 
