@@ -15,9 +15,6 @@ type Config struct {
 	// API path is stored here
 	Path *APIPath
 
-	// If true, Value of "Default" Field will be use everytime you make a request and if that field is empty/zero values
-	UseDefault bool
-
 	// Default Value are store here.
 	Default *Default
 }
@@ -124,7 +121,7 @@ var DefaultConfig = Config{
 }
 
 /*
-Default Value.
+Default Values.
 
 	Sampler  = sampler.EULER_A,
 	Steps    = 28,
@@ -146,10 +143,6 @@ func setDefault(conf ...Config) Config {
 	}
 
 	config := conf[0]
-
-	if config.UseDefault && config.Default == nil {
-		panic("useDefault is true, but no default value is passed")
-	}
 
 	if config.BaseURL == "" {
 		config.BaseURL = DefaultConfig.BaseURL

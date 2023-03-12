@@ -43,7 +43,7 @@ type Img2Img struct {
 }
 
 func (i *Img2Img) processDefault(a *api) {
-	if !a.Config.UseDefault {
+	if a.Config.Default == nil {
 		return
 	}
 
