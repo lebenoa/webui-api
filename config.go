@@ -131,7 +131,7 @@ Default Values.
 */
 var DefaultValue = &Default{
 	Sampler:  sampler.EULER_A,
-	Steps:    28,
+	Steps:    20,
 	CFGScale: 7,
 	Width:    512,
 	Height:   512,
