@@ -76,9 +76,12 @@ type ExtraSingleImage struct {
 	//
 	//  Default: ""
 	Image string `json:"image,omitempty"`
+
+	// If true, Will Decode Images after received response from API
+	DecodeAfterResult bool `json:"-"`
 }
 
-func (a *api) ExtraSingleImage(params ExtraSingleImage, decode ...bool) (*extraSingleImageRespond, error) {
+func (a *api) ExtraSingleImage(params ExtraSingleImage) (*extraSingleImageRespond, error) {
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return &extraSingleImageRespond{}, err
@@ -91,11 +94,16 @@ func (a *api) ExtraSingleImage(params ExtraSingleImage, decode ...bool) (*extraS
 
 	apiResp := extraSingleImageRespond{}
 	err = json.Unmarshal(data, &apiResp)
-
-	if len(decode) <= 0 {
-		return &apiResp, err
+	if err != nil {
+		return &extraSingleImageRespond{}, err
 	}
 
-	apiResp.DecodeImage()
-	return &apiResp, err
+	if params.DecodeAfterResult {
+		_, err := apiResp.DecodeImage()
+		if err != nil {
+			return &extraSingleImageRespond{}, err
+		}
+	}
+
+	return &apiResp, nil
 }

@@ -79,7 +79,7 @@ type ExtraBatchImages struct {
 	//  Default: Empty
 	ImagesList []ImageData `json:"imageList,omitempty"`
 
-	// If true, Will Decode Images after sending API requests
+	// If true, Will Decode Images after received response from API
 	DecodeAfterResult bool `json:"-"`
 }
 
