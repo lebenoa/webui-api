@@ -5,9 +5,10 @@ import (
 )
 
 type Img2Img struct {
-	InitImages             []string       `json:"init_images,omitempty"`              // List of base64-encoded images to send as base/original
-	ResizeMode             int            `json:"resize_mode,omitempty"`              // I don't know If I got it right or not. See: webui-api/img2img RESIZE_MODE helper package
-	DenoisingStrength      float64        `json:"denoising_strength,omitempty"`       // Determines how little respect the algorithm should have for image's content. At 0, nothing will change, and at 1 you'll get an unrelated image.
+	InitImages             []string       `json:"init_images,omitempty"`        // List of base64-encoded images to send as base/original
+	ResizeMode             int            `json:"resize_mode,omitempty"`        // I don't know If I got it right or not. See: webui-api/img2img RESIZE_MODE helper package
+	DenoisingStrength      float64        `json:"denoising_strength,omitempty"` // Determines how little respect the algorithm should have for image's content. At 0, nothing will change, and at 1 you'll get an unrelated image.
+	ImageCFGScale          float64        `json:"image_cfg_scale"`
 	Mask                   string         `json:"mask,omitempty"`                     // base64-encoded mask image. What to put inside the masked area before processing it with Stable Diffusion.
 	MaskBlur               int            `json:"mask_blur,omitempty"`                // How much to blur the mask before processing, in pixels.
 	InpaintingFill         int            `json:"inpainting_fill,omitempty"`          // I don't know If I got it right or not. See: webui-api/img2img INPAINT_MASK_CONENT helper package
@@ -33,13 +34,31 @@ type Img2Img struct {
 	Height                 int            `json:"height,omitempty"`
 	RestoreFaces           bool           `json:"restore_faces,omitempty"`
 	Tiling                 bool           `json:"tiling,omitempty"`
+	DoNotSaveSamples       bool           `json:"do_not_save_samples,omitempty"`
+	DoNotSaveGrid          bool           `json:"do_not_save_grid,omitempty"`
 	Eta                    float64        `json:"eta,omitempty"`
 	SChurn                 float64        `json:"s_churn,omitempty"`
 	STmax                  float64        `json:"s_tmax,omitempty"`
 	STmin                  float64        `json:"s_tmin,omitempty"`
 	SNoise                 float64        `json:"s_noise,omitempty"`
 	OverrideSettings       map[string]any `json:"override_settings,omitempty"`
-	IncludeInitImages      bool           `json:"include_init_images,omitempty"` // I don't even know what this is. But it has just a little impact on the result images
+
+	// Since API default value of this field is `true`, it can't be `omitempty`.
+	//
+	//  That means the default value of this lib is false
+	OverrideSettingsRestoreAfterwards bool `json:"override_settings_restore_afterwards"`
+
+	ScriptName string   `json:"script_name,omitempty"`
+	ScriptArgs []string `json:"script_args,omitempty"`
+
+	IncludeInitImages bool `json:"include_init_images,omitempty"` // I don't even know what this is. But it has just a little impact on the result images
+
+	// Since API default value of this field is `true`, it can't be `omitempty`.
+	//
+	//  That means the default value of this lib is false
+	SendImages bool `json:"send_images"`
+
+	SaveImages bool `json:"save_iamges,omitempty"`
 }
 
 func (i *Img2Img) processDefault(a *api) {
