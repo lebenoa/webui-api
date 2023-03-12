@@ -67,8 +67,8 @@ type Txt2Image struct {
 	//  That means the default value of this lib is false
 	OverrideSettingsRestoreAfterwards bool `json:"override_settings_restore_afterwards"`
 
-	ScriptName string `json:"script_name,omitempty"`
-	ScriptArgs string `json:"script_args,omitempty"`
+	ScriptName string   `json:"script_name,omitempty"`
+	ScriptArgs []string `json:"script_args,omitempty"`
 
 	// Since API default value of this field is `true`, it can't be `omitempty`.
 	//
