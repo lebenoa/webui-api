@@ -1,4 +1,4 @@
-package extra
+package upscaler
 
 type model struct {
 	Lanczos               string
