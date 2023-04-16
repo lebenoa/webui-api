@@ -131,10 +131,10 @@ type Options struct {
 	ShowProgressbar                    bool     `json:"show_progressbar,omitempty"`
 	LivePreviewsEnable                 bool     `json:"live_previews_enable,omitempty"`
 	ShowProgressGrid                   bool     `json:"show_progress_grid,omitempty"`
-	ShowProgressEveryNSteps            int      `json:"show_progress_every_n_steps,omitempty"`
+	ShowProgressEveryNSteps            float64  `json:"show_progress_every_n_steps,omitempty"`
 	ShowProgressType                   string   `json:"show_progress_type,omitempty"`
 	LivePreviewContent                 string   `json:"live_preview_content,omitempty"`
-	LivePreviewRefreshPeriod           int      `json:"live_preview_refresh_period,omitempty"`
+	LivePreviewRefreshPeriod           float64  `json:"live_preview_refresh_period,omitempty"`
 	HideSamplers                       []any    `json:"hide_samplers,omitempty"`
 	EtaDdim                            float64  `json:"eta_ddim,omitempty"`
 	EtaAncestral                       float64  `json:"eta_ancestral,omitempty"`
@@ -142,15 +142,15 @@ type Options struct {
 	SChurn                             float64  `json:"s_churn,omitempty"`
 	STmin                              float64  `json:"s_tmin,omitempty"`
 	SNoise                             float64  `json:"s_noise,omitempty"`
-	EtaNoiseSeedDelta                  int      `json:"eta_noise_seed_delta,omitempty"`
+	EtaNoiseSeedDelta                  float64  `json:"eta_noise_seed_delta,omitempty"`
 	AlwaysDiscardNextToLastSigma       bool     `json:"always_discard_next_to_last_sigma,omitempty"`
 	UniPcVariant                       string   `json:"uni_pc_variant,omitempty"`
 	UniPcSkipType                      string   `json:"uni_pc_skip_type,omitempty"`
-	UniPcOrder                         int      `json:"uni_pc_order,omitempty"`
+	UniPcOrder                         float64  `json:"uni_pc_order,omitempty"`
 	UniPcLowerOrderFinal               bool     `json:"uni_pc_lower_order_final,omitempty"`
 	PostprocessingEnableInMainUI       []any    `json:"postprocessing_enable_in_main_ui,omitempty"`
 	PostprocessingOperationOrder       []any    `json:"postprocessing_operation_order,omitempty"`
-	UpscalingMaxImagesInCache          int      `json:"upscaling_max_images_in_cache,omitempty"`
+	UpscalingMaxImagesInCache          float64  `json:"upscaling_max_images_in_cache,omitempty"`
 	DisabledExtensions                 []string `json:"disabled_extensions,omitempty"`
 	SdCheckpointHash                   string   `json:"sd_checkpoint_hash,omitempty"`
 	SdLora                             string   `json:"sd_lora,omitempty"`
