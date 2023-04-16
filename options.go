@@ -50,8 +50,12 @@ type Options struct {
 	DirectoriesMaxPromptWords          float64  `json:"directories_max_prompt_words,omitempty"`
 	ESRGANTile                         float64  `json:"ESRGAN_tile,omitempty"`
 	ESRGANTileOverlap                  float64  `json:"ESRGAN_tile_overlap,omitempty"`
-	RealesrganEnabledModels            []string `json:"realesrgan_enabled_models,omitempty"`
+	RealESRGanEnabledModels            []string `json:"realesrgan_enabled_models,omitempty"`
 	UpscalerForImg2Img                 string   `json:"upscaler_for_img2img,omitempty"`
+	LDSRSteps                          float64  `json:"ldsr_steps,omitempty"`
+	LDSRCache                          bool     `json:"ldsr_cached,omitempty"`
+	SWINTile                           float64  `json:"SWIN_tile"`
+	SWINTileOverlap                    float64  `json:"SWIN_tile_overlap"`
 	FaceRestorationModel               string   `json:"face_restoration_model,omitempty"`
 	CodeFormerWeight                   float64  `json:"code_former_weight,omitempty"`
 	FaceRestorationUnload              bool     `json:"face_restoration_unload,omitempty"`
@@ -108,6 +112,8 @@ type Options struct {
 	ExtraNetworksDefaultMultiplier     float64  `json:"extra_networks_default_multiplier,omitempty"`
 	ExtraNetworksAddTextSeparator      string   `json:"extra_networks_add_text_separator,omitempty"`
 	SdHypernetwork                     string   `json:"sd_hypernetwork,omitempty"`
+	SdLora                             string   `json:"sd_lora,omitempty"`
+	LoraApplyToOutputs                 bool     `json:"lora_apply_to_outputs,omitempty"`
 	ReturnGrid                         bool     `json:"return_grid,omitempty"`
 	DoNotShowImages                    bool     `json:"do_not_show_images,omitempty"`
 	AddModelHashToInfo                 bool     `json:"add_model_hash_to_info,omitempty"`
@@ -153,8 +159,6 @@ type Options struct {
 	UpscalingMaxImagesInCache          float64  `json:"upscaling_max_images_in_cache,omitempty"`
 	DisabledExtensions                 []string `json:"disabled_extensions,omitempty"`
 	SdCheckpointHash                   string   `json:"sd_checkpoint_hash,omitempty"`
-	SdLora                             string   `json:"sd_lora,omitempty"`
-	LoraApplyToOutputs                 bool     `json:"lora_apply_to_outputs,omitempty"`
 }
 
 // Get Options.
