@@ -62,20 +62,26 @@ type Txt2Image struct {
 	SNoise           float64        `json:"s_noise,omitempty"`
 	OverrideSettings map[string]any `json:"override_settings,omitempty"`
 
-	// Since API default value of this field is `true`, it can't be `omitempty`.
+	// Original field was `OverrideSettingsRestoreAfterwards` but since the default value is `true`. it's quite tricky to do this in GO
 	//
-	//  That means the default value of this lib is false
-	OverrideSettingsRestoreAfterwards bool `json:"override_settings_restore_afterwards"`
+	//  So I decided to reverse it. This set to true and "override_settings_restore_afterwards": false and vice versa
+	DoNotOverrideSettingsRestoreAfterwards bool `json:"override_settings_restore_afterwards"`
 
 	ScriptName string   `json:"script_name,omitempty"`
 	ScriptArgs []string `json:"script_args,omitempty"`
 
-	// Since API default value of this field is `true`, it can't be `omitempty`.
+	// Original field was `SendImages` but since the default value is `true`. it's quite tricky to do this in GO
 	//
-	//  That means the default value of this lib is false
-	SendImages bool `json:"send_images"`
+	//  So I decided to reverse it. This set to true and "send_images": false and vice versa
+	DoNotSendImages bool `json:"send_images"`
 
-	SaveImages bool `json:"save_iamges,omitempty"`
+	// Save image(s) to `outputs` folder where Stable Diffusion Web UI is running
+	SaveImages bool `json:"save_images,omitempty"`
+
+	AlwaysOnScripts map[string]any `json:"alwayson_scripts,omitempty"`
+
+	// If true, Will Decode Images after received response from API
+	DecodeAfterResult bool `json:"-"`
 }
 
 func (data *Txt2Image) processDefault(a *api) {
@@ -106,6 +112,9 @@ func (data *Txt2Image) processDefault(a *api) {
 	if data.SamplerIndex == "" {
 		data.SamplerIndex = a.Config.Default.Sampler
 	}
+
+	data.DoNotOverrideSettingsRestoreAfterwards = !data.DoNotOverrideSettingsRestoreAfterwards
+	data.DoNotSendImages = !data.DoNotSendImages
 }
 
 // Generate Image based on Text. Return Respond struct and Error object.
@@ -124,5 +133,13 @@ func (a *api) Text2Image(params *Txt2Image) (*txt2ImageRespond, error) {
 
 	apiResp := newTxt2ImgResp()
 	err = json.Unmarshal(data, &apiResp)
+
+	if params.DecodeAfterResult {
+		_, err := apiResp.DecodeAllImages()
+		if err != nil {
+			return &txt2ImageRespond{}, err
+		}
+	}
+
 	return apiResp, err
 }

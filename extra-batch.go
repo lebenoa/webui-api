@@ -12,8 +12,12 @@ type ExtraBatchImages struct {
 
 	// Don't even know what this is.
 	//
+	// Original field was `ShowExtrasResults` but since the default value is `true`. it's quite tricky to do this in GO
+	//
+	//  So I decided to reverse it. This set to true and "show_extras_results": false and vice versa
+	//
 	//  Default: true
-	ShowExtrasResults bool `json:"show_extras_results,omitempty"`
+	DoNotShowExtrasResults bool `json:"show_extras_results,omitempty"`
 
 	// GFPGAN Face restoration. Value must be between 0.0 - 1.0
 	//
@@ -50,9 +54,13 @@ type ExtraBatchImages struct {
 
 	// Crop Image if the aspect ratio of original image and result image doesn't match.
 	//
+	// Original field was `UpscalingCrop` but since the default value is `true`. it's quite tricky to do this in GO
+	//
+	//  So I decided to reverse it. This set to true and "upscaling_crop": false and vice versa
+	//
 	//  NOTE: Will only work if ResizeMode is 1
 	//  Default: true
-	UpscalingCrop bool `json:"upscaling_crop,omitempty"`
+	DoNotUpscalingCrop bool `json:"upscaling_crop,omitempty"`
 
 	// First Upscaler Model. See: webui-api/extra package for helper.
 	//
@@ -96,7 +104,14 @@ type ImageData struct {
 	Name string `json:"name"`
 }
 
+func (p *ExtraBatchImages) correctParams() {
+	p.DoNotShowExtrasResults = !p.DoNotShowExtrasResults
+	p.DoNotUpscalingCrop = !p.DoNotUpscalingCrop
+}
+
 func (a *api) ExtraBatchImages(params *ExtraBatchImages) (*extraBatchImagesRespond, error) {
+	params.correctParams()
+
 	payload, err := json.Marshal(params)
 	if err != nil {
 		return &extraBatchImagesRespond{}, err

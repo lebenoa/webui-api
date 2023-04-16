@@ -25,6 +25,7 @@ const (
 	DPM_PLUS_PLUS_SDE         = "DPM++ SDE"
 	DPM_PLUS_PLUS_SDE_KARRAS  = "DPM++ SDE Karras"
 
-	DDIM = "DDIM"
-	PLMS = "PLMS"
+	DDIM   = "DDIM"
+	PLMS   = "PLMS"
+	UNI_PC = "UniPC"
 )

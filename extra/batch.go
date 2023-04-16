@@ -1,6 +1,10 @@
 package extra
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
+
 	"github.com/Meonako/webui-api"
 	"github.com/Meonako/webui-api/utils"
 )
@@ -39,4 +43,30 @@ func BuildBatchFromFilesIgnore(files ...string) (res []api.ImageData) {
 	return
 }
 
-// TODO: BuildBatchFromDir // Convenience function to build []ImageData from directory
+// EXP: Convenience function to build []ImageData from directory
+func BuildBatchFromDir(pathToDir string) (res []api.ImageData, err error) {
+	files, readErr := os.ReadDir(pathToDir)
+	if readErr != nil {
+		return []api.ImageData{}, readErr
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+
+		fileName := file.Name()
+		ext := filepath.Ext(fileName)
+		if ext == "" && strings.ToLower(ext) != "png" && strings.ToLower(ext) != "jpg" && strings.ToLower(ext) != "jpeg" {
+			continue
+		}
+
+		encoded, encErr := utils.Base64FromFile(filepath.Join(pathToDir, fileName))
+		if encErr != nil {
+			return []api.ImageData{}, encErr
+		}
+		res = append(res, api.ImageData{Data: "data:image/png;base64," + encoded})
+	}
+
+	return
+}
