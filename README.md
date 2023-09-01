@@ -1,4 +1,4 @@
-# This project is unmaintained. Looking for a new owner or you should use fork instead.
+# <ins>This project is unmaintained. Looking for a new owner or you should use fork instead.</ins>
 
 I'm not using GO anymore. While GO is definitely fun to use, it's "a bit **verbose**" and   
 I think Rust is more enjoyable with something like `Option<T>` enum.
