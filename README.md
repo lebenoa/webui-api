@@ -1,3 +1,12 @@
+# This project is unmaintained. Looking for a new owner or you should use fork instead.
+
+I'm not using GO anymore. While GO is definitely fun to use, it's "a bit **verbose**" and   
+I think Rust is more enjoyable with something like `Option<T>` enum.
+
+GO is a great language and maybe one of the first "***Errors are values***" and even with garbage collector, it is pretty fast.  
+but for me, Rust is just more powerful with all these macro stuff  
+(I can't write/create one obviously but I can't express enough how easy it is to use library like Tauri, Serde, poise-rs)
+
 # AUTOMATIC1111's Webui API
 
 AUTOMATIC1111's Webui **API** for **GO**. So you don't have to do it yourself.   
